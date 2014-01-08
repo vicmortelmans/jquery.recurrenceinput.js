@@ -402,16 +402,16 @@
                                 '<label for="${name}yearlytype:DAYOFMONTH">',
                                     '${i18n.yearlyDayOfMonth1}',
                                 '</label>',
-                                '<select name="riyearlydayofmonthmonth">',
-                                '{{each i18n.months}}',
-                                    '<option value="${$index+1}">${$value}</option>',
-                                '{{/each}}',
-                                '</select>',
-                                '${i18n.yearlyDayOfMonth2}',
                                 '<select name="riyearlydayofmonthday">',
                                 '{{each [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,',
                                         '18,19,20,21,22,23,24,25,26,27,28,29,30,31]}}',
                                     '<option value="${$value}">${$value}</option>',
+                                '{{/each}}',
+                                '</select>',
+                                '${i18n.yearlyDayOfMonth2}',
+                                '<select name="riyearlydayofmonthmonth">',
+                                '{{each i18n.months}}',
+                                    '<option value="${$index+1}">${$value}</option>',
                                 '{{/each}}',
                                 '</select>',
                                 '${i18n.yearlyDayOfMonth3}',
@@ -670,7 +670,7 @@
                     day = $('select[name=riyearlydayofmonthday]', form).val();
                     result += ';BYMONTH=' + month;
                     result += ';BYMONTHDAY=' + day;
-                    human += ', ' + conf.i18n.yearlyDayOfMonth1Human + ' ' + conf.i18n.months[month - 1] + ' ' + day;
+                    human += ', ' + conf.i18n.yearlyDayOfMonth1Human + ' ' + day + ' ' + conf.i18n.months[month - 1];
                     break;
                 case 'WEEKDAYOFMONTH':
                     index = $('select[name=riyearlyweekdayofmonthindex]', form).val();
@@ -1279,7 +1279,7 @@
                         element.find('.rioccurrences .action a.rdate').click(occurrenceDelete);
                     }
                     // Show the new div
-                    element.find('.rioccurrences').show();
+                    //element.find('.rioccurrences').show();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(textStatus);
@@ -1534,7 +1534,7 @@
             // if no field errors, process the request
             if (checkFields(form)) {
                 // close overlay
-                form.overlay().close();
+                //form.overlay().close();
                 recurrenceOn();
             }
         }
@@ -1542,7 +1542,7 @@
         function cancel(event) {
             event.preventDefault();
             // close overlay
-            form.overlay().close();
+            //form.overlay().close();
         }
 
         function updateOccurances() {
@@ -1555,6 +1555,7 @@
                     widgetSaveToRfc5545(form, conf, false).result,
                     0,
                     false);
+                recurrenceOn();
             }
         }
 
@@ -1566,7 +1567,7 @@
         form = $.tmpl('formTmpl', conf);
 
         // Make an overlay and hide it
-        form.overlay(conf.formOverlay).hide();
+        //form.overlay(conf.formOverlay).hide();
         form.ical = {RDATE: [], EXDATE: []};
 
         $.tools.dateinput.localize(conf.lang,  {
@@ -1611,7 +1612,7 @@
                 // Load the form to set up the right fields to show, etc.
                 loadData(textarea.val());
                 e.preventDefault();
-                form.overlay().load();
+                //form.overlay().load();
             }
         );
 
@@ -1709,7 +1710,7 @@
         this.after(recurrenceinput.display);
 
         // hide the textarea
-        this.hide();
+        //this.hide();
 
         // save the data for next call
         this.data('recurrenceinput', recurrenceinput);
